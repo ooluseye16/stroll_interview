@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:stroll_interview/screens/widgets/answer_card.dart';
+import 'package:stroll_interview/screens/widgets/info_tile.dart';
 import 'package:stroll_interview/utilities/colors.dart';
 import 'package:stroll_interview/utilities/extensions.dart';
+import 'package:stroll_interview/utilities/general_widgets/badge.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({super.key});
@@ -233,7 +236,7 @@ class _FirstPageState extends State<FirstPage> {
               alignment: Alignment.topRight,
               children: [
                 SvgPicture.asset('trending'.toSvg),
-                Positioned(right: -5.w, child: Badge(value: "  ")),
+                Positioned(right: -5.w, child: AppBadge(value: "  ")),
               ],
             ),
             label: "Trending",
@@ -244,7 +247,7 @@ class _FirstPageState extends State<FirstPage> {
               alignment: Alignment.topRight,
               children: [
                 SvgPicture.asset('message'.toSvg),
-                Positioned(right: -5.w, child: Badge(value: "10")),
+                Positioned(right: -5.w, child: AppBadge(value: "10")),
               ],
             ),
             label: "Message",
@@ -259,131 +262,6 @@ class _FirstPageState extends State<FirstPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class Badge extends StatelessWidget {
-  const Badge({super.key, required this.value});
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: REdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Text(
-        value,
-        style: TextStyle(fontSize: 7.sp, fontWeight: FontWeight.w700),
-      ),
-    );
-  }
-}
-
-class AnswerCard extends StatelessWidget {
-  const AnswerCard({
-    super.key,
-    required this.answer,
-    required this.index,
-    required this.selectedIndex,
-    required this.onSelect,
-  });
-  final String answer;
-  final int index;
-
-  final int selectedIndex;
-  final VoidCallback onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onSelect,
-      child: Container(
-        width: 166.w,
-        //height: 57.h,
-        decoration: BoxDecoration(
-          color: Color(0xff232A2E),
-          borderRadius: BorderRadius.circular(12),
-          border:
-              selectedIndex == index
-                  ? Border.all(color: AppColors.primary, width: 2.w)
-                  : null,
-        ),
-        padding: REdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-        child: Row(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: selectedIndex == index ? AppColors.primary : null,
-                border: Border.all(
-                  color:
-                      selectedIndex == index
-                          ? AppColors.primary
-                          : Color(0xffC4c4c4),
-                  width: 1.w,
-                ),
-              ),
-
-              padding: REdgeInsets.all(6.0),
-              child: Text(
-                index == 0
-                    ? "A"
-                    : index == 1
-                    ? "B"
-                    : index == 2
-                    ? "C"
-                    : "D",
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            10.width,
-            Flexible(
-              child: Text(
-                answer,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.grey1,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class InfoTile extends StatelessWidget {
-  const InfoTile({super.key, required this.imageName, required this.label});
-  final String imageName;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SvgPicture.asset(imageName.toSvg),
-        4.width,
-        Text(
-          label,
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 12.sp,
-            height: 1,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
     );
   }
 }
